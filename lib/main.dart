@@ -1,6 +1,24 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_explorer/ui/page/media_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() => runApp(const MyApp());
+Future<void> main() async {
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyBBpjgFBy2Q2R1GYekCT1jLraxy7hj3CDs",
+      authDomain: "li-berty-customers.firebaseapp.com",
+      databaseURL:
+          "https://li-berty-customers-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "li-berty-customers",
+      storageBucket: "li-berty-customers.appspot.com",
+      messagingSenderId: "111632664076",
+      appId: "1:111632664076:web:c1f17119ddee92dd6d9029",
+      measurementId: "G-P2M6EBYBKX",
+    ),
+  );
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -8,20 +26,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in a Flutter IDE). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    return const ProviderScope(
+      child: MediaPage(),
     );
   }
 }

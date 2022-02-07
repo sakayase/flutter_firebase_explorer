@@ -22,9 +22,6 @@ class _MediaPageState extends ConsumerState<MediaPage>
   @override
   void initState() {
     final mediaState = ref.read(mediaProvider);
-    mediaState.setInitialPath('');
-    mediaState.setModifiablePath('');
-    mediaState.getDocs();
     mediaState.setController(
       AnimationController(
         duration: const Duration(milliseconds: 200),

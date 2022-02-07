@@ -9,6 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class MediaState with ChangeNotifier {
+  MediaState() {
+    setInitialPath('');
+    setModifiablePath('');
+    getDocs();
+  }
   FirebaseStorage storage = FirebaseStorage.instance;
   String? initialPath;
   String? modifiablePath;
