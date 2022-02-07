@@ -18,10 +18,10 @@ class UploadPhotoButton extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
+              SizedBox(
                 width: 40,
                 height: 40,
-                child: Container(
+                child: SizedBox(
                   child: Icon(
                     Icons.upload_file,
                     color: Theme.of(context).colorScheme.primary,

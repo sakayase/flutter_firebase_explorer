@@ -21,16 +21,16 @@ class Info extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final mediaState = ref.watch(mediaProvider);
     if ((item == null)) return const SizedBox.shrink();
-    if ((type == Type.item))
+    if ((type == Type.item)) {
       return FutureBuilder<FullMetadata>(
         future: item!.getMetadata(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Text('Erreur');
+            return const Text('Erreur');
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -65,10 +65,10 @@ class Info extends ConsumerWidget {
                               color: Theme.of(context).colorScheme.primary,
                             ),
                           )
-                        : SizedBox.shrink(),
-                    Divider(),
+                        : const SizedBox.shrink(),
+                    const Divider(),
                     ListTile(
-                      title: Text('Nom'),
+                      title: const Text('Nom'),
                       subtitle: Text(item!.name),
                       trailing: IconButton(
                         onPressed: () async {
@@ -86,16 +86,16 @@ class Info extends ConsumerWidget {
                       ),
                     ),
                     ListTile(
-                      title: Text('Date de création'),
+                      title: const Text('Date de création'),
                       subtitle: Text(
                           snapshot.data!.timeCreated!.toLocal().toString()),
                     ),
                     ListTile(
-                      title: Text('Type'),
+                      title: const Text('Type'),
                       subtitle: Text(snapshot.data!.contentType!),
                     ),
                     ListTile(
-                      title: Text('Taille'),
+                      title: const Text('Taille'),
                       subtitle: Text(
                           (snapshot.data!.size! / 1000).toString() + ' kB'),
                     ),
@@ -103,16 +103,16 @@ class Info extends ConsumerWidget {
                         onPressed: () async {
                           Navigator.pop(context, url);
                         },
-                        child: Text('Selectionner'))
+                        child: const Text('Selectionner'))
                   ],
                 ),
               ],
             );
           }
-          return SizedBox.shrink();
+          return const SizedBox.shrink();
         },
       );
-    else
+    } else {
       return Stack(
         children: [
           Positioned(
@@ -135,10 +135,10 @@ class Info extends ConsumerWidget {
             children: [
               Icon(Icons.folder,
                   size: 150, color: Theme.of(context).colorScheme.primary),
-              Divider(),
+              const Divider(),
               ListTile(
                 title: Text(item!.name),
-                subtitle: Text('Dossier'),
+                subtitle: const Text('Dossier'),
                 trailing: IconButton(
                   onPressed: () async {
                     mediaState.setClickedItem(null);
@@ -158,6 +158,7 @@ class Info extends ConsumerWidget {
           ),
         ],
       );
+    }
   }
 
   deleteFolderContent(Reference prefixe) async {

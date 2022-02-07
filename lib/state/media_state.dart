@@ -92,7 +92,7 @@ class MediaState with ChangeNotifier {
     setFolders(listResult.prefixes);
     setItemWidget(items.map((e) {
       if (e.name == 'ghost.ghost') {
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
       }
       return ImageItem(
         item: e,
@@ -134,7 +134,7 @@ class MediaState with ChangeNotifier {
           .child(photo.name)
           .putData(bytes, SettableMetadata(contentType: photo.mimeType));
       await uploadTask.timeout(
-        Duration(seconds: 15),
+        const Duration(seconds: 15),
         onTimeout: () async {
           await uploadTask.cancel();
           throw TimeoutException('Delai depassé');
@@ -152,28 +152,27 @@ class MediaState with ChangeNotifier {
   }
 
   generatePathButtons() {
-    print('createListFolderButtons');
     List listFolderNames = modifiablePath!.split('/');
     listFolderNames.removeWhere((element) => element == '');
     String path = '';
-    this.pathButtonList = [];
-    this.pathButtonList.add(
-          TextButton(
-            key: Key('media'),
-            onPressed: () {
-              setModifiablePath('');
-              getDocs();
-            },
-            child: Text('media/'),
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.all(0),
-            ),
-          ),
-        );
-    this.pathButtonList.addAll(listFolderNames.map((folder) {
-          path = path + folder + '/';
-          return createPathButtons(path, folder);
-        }).toList());
+    pathButtonList = [];
+    pathButtonList.add(
+      TextButton(
+        key: const Key('media'),
+        onPressed: () {
+          setModifiablePath('');
+          getDocs();
+        },
+        child: const Text('media/'),
+        style: TextButton.styleFrom(
+          padding: const EdgeInsets.all(0),
+        ),
+      ),
+    );
+    pathButtonList.addAll(listFolderNames.map((folder) {
+      path = path + folder + '/';
+      return createPathButtons(path, folder);
+    }).toList());
 
     notifyListeners();
   }
@@ -189,7 +188,7 @@ class MediaState with ChangeNotifier {
         folder + '/',
       ),
       style: TextButton.styleFrom(
-          padding: EdgeInsets.all(0), minimumSize: Size.zero),
+          padding: const EdgeInsets.all(0), minimumSize: Size.zero),
     );
   }
 }

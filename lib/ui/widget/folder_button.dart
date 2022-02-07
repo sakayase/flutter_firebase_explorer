@@ -29,7 +29,7 @@ class FolderButton extends ConsumerWidget {
           mediaState.setModifiablePath(path);
           mediaState.getDocs();
         },
-        child: Container(
+        child: SizedBox(
           width: 55,
           height: 55,
           child: Column(
@@ -42,7 +42,8 @@ class FolderButton extends ConsumerWidget {
               ),
               Text(
                 item.name,
-                style: TextStyle(fontSize: 9, overflow: TextOverflow.ellipsis),
+                style: const TextStyle(
+                    fontSize: 9, overflow: TextOverflow.ellipsis),
               ),
             ],
           ),

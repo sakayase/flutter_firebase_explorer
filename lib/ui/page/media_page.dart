@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MediaPage extends ConsumerStatefulWidget {
-  MediaPage({Key? key}) : super(key: key);
+  const MediaPage({Key? key}) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _MediaPageState();
@@ -33,8 +33,8 @@ class _MediaPageState extends ConsumerState<MediaPage>
     );
     mediaState.setOffsetAnimation(
       Tween<Offset>(
-        begin: Offset(1, 0),
-        end: Offset(0, 0),
+        begin: const Offset(1, 0),
+        end: const Offset(0, 0),
       ).animate(
         CurvedAnimation(
           parent: mediaState.controller!,
@@ -62,7 +62,7 @@ class _MediaPageState extends ConsumerState<MediaPage>
                 style: Theme.of(context)
                     .textTheme
                     .headline1!
-                    .copyWith(color: Color(0xFF00296B)),
+                    .copyWith(color: const Color(0xFF00296B)),
               ),
             ),
             Flexible(
@@ -121,7 +121,7 @@ class _MediaPageState extends ConsumerState<MediaPage>
                             ),
                             Flexible(
                               flex: 11,
-                              child: Container(
+                              child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 child: Wrap(
                                   children: <Widget>[
@@ -150,7 +150,7 @@ class _MediaPageState extends ConsumerState<MediaPage>
                                 ),
                               ),
                             )
-                          : SizedBox.shrink(),
+                          : const SizedBox.shrink(),
                     ],
                   ),
                 ),
@@ -168,7 +168,7 @@ class _MediaPageState extends ConsumerState<MediaPage>
       builder: (context) {
         TextEditingController controller = TextEditingController();
         return SimpleDialog(
-          title: Text('Nom du dossier'),
+          title: const Text('Nom du dossier'),
           children: [
             TextField(
               controller: controller,
@@ -179,7 +179,7 @@ class _MediaPageState extends ConsumerState<MediaPage>
               onPressed: () {
                 Navigator.of(context).pop(controller.text);
               },
-              child: Text('Ok'),
+              child: const Text('Ok'),
             ),
           ],
         );

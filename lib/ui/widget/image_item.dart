@@ -27,13 +27,13 @@ class ImageItem extends ConsumerWidget {
                 mediaState.setTypeClicked(Type.item);
                 mediaState.setShowInfo(true);
               },
-              child: Container(
+              child: SizedBox(
                 height: 55,
                 width: 55,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 30,
                       height: 30,
                       child: Padding(
@@ -49,7 +49,7 @@ class ImageItem extends ConsumerWidget {
                     ),
                     Text(
                       item.name,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 8,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -71,7 +71,7 @@ class ImageItem extends ConsumerWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       child: Icon(
                         Icons.image,
                         color: Theme.of(context).colorScheme.primary,
@@ -80,7 +80,7 @@ class ImageItem extends ConsumerWidget {
                     ),
                     Text(
                       item.name,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 8, overflow: TextOverflow.ellipsis),
                     ),
                   ],
@@ -89,7 +89,7 @@ class ImageItem extends ConsumerWidget {
             ),
           );
         }
-        return Container(
+        return SizedBox(
           child: Icon(
             Icons.image_not_supported,
             color: Theme.of(context).colorScheme.primary,

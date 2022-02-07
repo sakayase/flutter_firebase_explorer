@@ -18,14 +18,12 @@ class CreateFolderButton extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
+              SizedBox(
                 width: 40,
                 height: 40,
-                child: Container(
-                  child: Icon(
-                    Icons.create_new_folder,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                child: Icon(
+                  Icons.create_new_folder,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ],
