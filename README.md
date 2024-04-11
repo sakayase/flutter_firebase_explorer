@@ -12,3 +12,5 @@ Then you can import the *FirebaseExplorer* widget and pass it your *FirebaseStor
 - Thirdly, I have to remove the flickering.
 
 For now, the main features are there, its just some QOL and visuals ameliorations left to do.
+
+Tested on web, should work with others but i dont know for now.
