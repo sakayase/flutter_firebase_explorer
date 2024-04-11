@@ -14,7 +14,7 @@ class MediaState with ChangeNotifier {
     setModifiablePath('');
     getDocs();
   }
-  FirebaseStorage storage = FirebaseStorage.instance;
+  FirebaseStorage? storage;
   String? initialPath;
   String? modifiablePath;
   Reference? clickedItem;
@@ -29,6 +29,10 @@ class MediaState with ChangeNotifier {
 
   AnimationController? controller;
   Animation<Offset>? offsetAnimation;
+
+  setStorage(FirebaseStorage storage) {
+    this.storage = storage;
+  }
 
   setInitialPath(String path) {
     initialPath = path;
@@ -91,45 +95,51 @@ class MediaState with ChangeNotifier {
   }
 
   getDocs() async {
-    Reference reference = storage.ref(initialPath! + modifiablePath!);
-    ListResult listResult = await reference.listAll();
-    setItems(listResult.items);
-    setFolders(listResult.prefixes);
-    setItemWidget(items.map((e) {
-      if (e.name == 'ghost.ghost') {
-        return const SizedBox.shrink();
-      }
-      return ImageItem(
-        item: e,
-      );
-    }).toList());
-    setFolderWidget(folders.map(
-      (e) {
-        return FolderButton(
+    if (storage != null) {
+      Reference reference = storage!.ref(initialPath! + modifiablePath!);
+      ListResult listResult = await reference.listAll();
+      setItems(listResult.items);
+      setFolders(listResult.prefixes);
+      setItemWidget(items.map((e) {
+        if (e.name == 'ghost.ghost') {
+          return const SizedBox.shrink();
+        }
+        return ImageItem(
           item: e,
         );
-      },
-    ).toList());
-    generatePathButtons();
+      }).toList());
+      setFolderWidget(folders.map(
+        (e) {
+          return FolderButton(
+            item: e,
+          );
+        },
+      ).toList());
+      generatePathButtons();
+    }
   }
 
   Future createFolder(String name) async {
-    await storage
-        .ref(initialPath! + modifiablePath!)
-        .child('$name/ghost.ghost')
-        .putString('ghost')
-        .then((p0) {
-      setModifiablePath(modifiablePath! + '/' + name);
-      getDocs();
-    });
+    if (storage != null) {
+      await storage!
+          .ref(initialPath! + modifiablePath!)
+          .child('$name/ghost.ghost')
+          .putString('ghost')
+          .then((p0) {
+        setModifiablePath('${modifiablePath!}/$name');
+        getDocs();
+      });
+    }
   }
 
   Future pickImages() async {
-    ImagePicker picker = ImagePicker();
-    Reference ref = storage.ref(initialPath! + modifiablePath!);
-    await picker.pickMultiImage().then((List<XFile>? photos) async {
-      if (photos != null) await uploadImages(photos, ref);
-    });
+    if (storage != null) {
+      ImagePicker picker = ImagePicker();
+      Reference ref = storage!.ref(initialPath! + modifiablePath!);
+      await picker.pickMultiImage().then((List<XFile>? photos) async {
+        if (photos != null) await uploadImages(photos, ref);
+      });
+    }
   }
 
   Future uploadImages(List<XFile> photos, Reference ref) async {
@@ -168,14 +178,14 @@ class MediaState with ChangeNotifier {
           setModifiablePath('');
           getDocs();
         },
-        child: const Text('media/'),
         style: TextButton.styleFrom(
           padding: const EdgeInsets.all(0),
         ),
+        child: const Text('media/'),
       ),
     );
     pathButtonList.addAll(listFolderNames.map((folder) {
-      path = path + folder + '/';
+      path = '${path + folder}/';
       return createPathButtons(path, folder);
     }).toList());
 
@@ -189,11 +199,11 @@ class MediaState with ChangeNotifier {
         setModifiablePath(path);
         getDocs();
       },
+      style: TextButton.styleFrom(
+          padding: const EdgeInsets.all(0), minimumSize: Size.zero),
       child: Text(
         folder + '/',
       ),
-      style: TextButton.styleFrom(
-          padding: const EdgeInsets.all(0), minimumSize: Size.zero),
     );
   }
 }

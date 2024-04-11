@@ -2,19 +2,16 @@ import 'package:firebase_explorer/provider/providers.dart';
 import 'package:firebase_explorer/ui/widget/create_folder_button.dart';
 import 'package:firebase_explorer/ui/widget/info.dart';
 import 'package:firebase_explorer/ui/widget/upload_photo_button.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MediaPage extends ConsumerStatefulWidget {
-  const MediaPage({Key? key}) : super(key: key);
+  const MediaPage({Key? key, required this.storage}) : super(key: key);
+  final FirebaseStorage storage;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _MediaPageState();
-}
-
-enum Type {
-  folders,
-  item,
 }
 
 class _MediaPageState extends ConsumerState<MediaPage>
@@ -22,6 +19,7 @@ class _MediaPageState extends ConsumerState<MediaPage>
   @override
   void initState() {
     final mediaState = ref.read(mediaProvider);
+    mediaState.setStorage(widget.storage);
     mediaState.setController(
       AnimationController(
         duration: const Duration(milliseconds: 200),
